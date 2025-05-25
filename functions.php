@@ -135,3 +135,56 @@ function powder_theme_updates( $transient ) {
     return $transient;
 }
 add_filter( 'pre_set_site_transient_update_themes', 'powder_theme_updates' );
+
+/**
+ * Enqueue WebAwesome stylesheets and script.
+ */
+function powder_enqueue_webawesome() {
+    // Enqueue WebAwesome stylesheets
+    wp_enqueue_style(
+        'webawesome-default',
+        'https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/styles/themes/default.css',
+        array(),
+        '3.0.0-alpha.13'
+    );
+    
+    wp_enqueue_style(
+        'webawesome-main',
+        'https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/styles/webawesome.css',
+        array(),
+        '3.0.0-alpha.13'
+    );
+    
+    // Enqueue WebAwesome script
+    wp_enqueue_script(
+        'webawesome-loader',
+        'https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/webawesome.loader.js',
+        array(),
+        '3.0.0-alpha.13',
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'powder_enqueue_webawesome' );
+
+// Modify the script tag to include type="module"
+function powder_add_module_type_to_webawesome( $tag, $handle, $src ) {
+	if ('webawesome-loader' === $handle) {
+        return '<script type="module" src="' . esc_url($src) . '" data-webawesome="https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist"></script>';
+    }
+    return $tag;
+}
+add_filter( 'script_loader_tag', 'powder_add_module_type_to_webawesome', 10, 3 );
+
+
+// The proper way to enqueue GSAP script in WordPress
+
+// wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );
+function theme_gsap_script(){
+    // The core GSAP library
+    wp_enqueue_script( 'gsap-js', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', array(), false, true );
+    // ScrollTrigger - with gsap.js passed as a dependency
+    wp_enqueue_script( 'gsap-st', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js', array('gsap-js'), false, true );
+    // Your animation code file - with gsap.js passed as a dependency
+    wp_enqueue_script( 'gsap-js2', get_template_directory_uri() . 'js/app.js', array('gsap-js'), false, true );
+}
+add_action( 'wp_enqueue_scripts', 'theme_gsap_script' );

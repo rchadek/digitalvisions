@@ -42,7 +42,7 @@
 			"defaultPalette": false,
 			"duotone": [
 				{
-					"colors": [ "#4d179a", "#ffffff" ],
+					"colors": [ "#134d58", "#ffffff" ],
 					"name": "Primary and White",
 					"slug": "primary-and-white"
 				},
@@ -62,14 +62,14 @@
 					"slug": "contrast-and-tertiary"
 				},
 				{
-					"colors": [ "#0a0a0a", "#ede9fe" ],
+					"colors": [ "#0a0a0a", "#1e9da9" ],
 					"name": "Contrast and Quaternary",
 					"slug": "contrast-and-quaternary"
 				}
 			],
 			"palette": [
 				{
-					"color": "#4d179a",
+					"color": "#134d58",
 					"name": "Primary",
 					"slug": "primary"
 				},
@@ -84,7 +84,7 @@
 					"slug": "tertiary"
 				},
 				{
-					"color": "#ede9fe",
+					"color": "#1e9da9",
 					"name": "Quaternary",
 					"slug": "quaternary"
 				},
