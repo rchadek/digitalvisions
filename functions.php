@@ -188,3 +188,25 @@ function theme_gsap_script(){
     wp_enqueue_script( 'gsap-js2', get_template_directory_uri() . 'js/app.js', array('gsap-js'), false, true );
 }
 add_action( 'wp_enqueue_scripts', 'theme_gsap_script' );
+
+
+function theme_enqueue_custom_gsap_script() {
+    // Enqueue GSAP from CDN if not already loaded
+    wp_enqueue_script(
+        'gsap',
+        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
+        array(),
+        '3.12.2',
+        true
+    );
+
+    // Enqueue your custom script
+    wp_enqueue_script(
+        'custom-gsap',
+        get_template_directory_uri() . '/assets/js/custom-gsap.js',
+        array('gsap'), // Load after GSAP
+        null,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'theme_enqueue_custom_gsap_script');
